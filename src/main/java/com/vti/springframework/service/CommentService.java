@@ -3,11 +3,11 @@ package com.vti.springframework.service;
 import com.vti.springframework.dto.CommentDto;
 import com.vti.springframework.form.CommentCreateForm;
 import com.vti.springframework.form.CommentUpdateForm;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CommentService {
-    List<CommentDto> findAll();
+    Page<CommentDto> findAll(Pageable pageable);
 
     CommentDto findById(Long id);
 

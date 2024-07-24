@@ -3,11 +3,11 @@ package com.vti.springframework.service;
 import com.vti.springframework.dto.PostDto;
 import com.vti.springframework.form.PostCreateForm;
 import com.vti.springframework.form.PostUpdateForm;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PostService {
-    List<PostDto> findAll();
+    Page<PostDto> findAll(Pageable pageable);
 
     PostDto findById(Long id);
 
