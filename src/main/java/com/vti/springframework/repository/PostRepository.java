@@ -32,6 +32,9 @@ public interface PostRepository
     // VD: Xóa post theo title
     void deleteByTitle(String title);
 
+    // VD: Kiểm tra tồn tại theo title
+    boolean existsByTitle(String title);
+
 
 
     // 2. @Query annotation
