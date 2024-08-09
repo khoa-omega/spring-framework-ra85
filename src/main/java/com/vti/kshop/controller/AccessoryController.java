@@ -4,10 +4,12 @@ import com.vti.kshop.dto.AccessoryDto;
 import com.vti.kshop.form.AccessoryCreateForm;
 import com.vti.kshop.form.AccessoryUpdateForm;
 import com.vti.kshop.service.AccessoryService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Validated
 @RestController
 @AllArgsConstructor
 @CrossOrigin("*")
@@ -36,14 +39,16 @@ public class AccessoryController {
 
     @PostMapping("/api/v1/accessories")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccessoryDto create(@RequestBody AccessoryCreateForm form) {
+    public AccessoryDto create(
+            @RequestBody @Valid AccessoryCreateForm form
+    ) {
         return accessoryService.create(form);
     }
 
     @PutMapping("/api/v1/accessories/{id}")
     public AccessoryDto update(
             @PathVariable("id") Long id,
-            @RequestBody AccessoryUpdateForm form
+            @RequestBody @Valid AccessoryUpdateForm form
     ) {
         return accessoryService.update(id, form);
     }
