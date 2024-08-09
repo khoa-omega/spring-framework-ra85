@@ -4,6 +4,7 @@ import com.vti.kshop.dto.CarDto;
 import com.vti.kshop.form.CarCreateForm;
 import com.vti.kshop.form.CarUpdateForm;
 import com.vti.kshop.service.CarService;
+import com.vti.kshop.validation.CarIdExists;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,9 @@ public class CarController {
     }
 
     @GetMapping("/api/v1/cars/{id}")
-    public CarDto findById(@PathVariable("id") Long id) {
+    public CarDto findById(
+            @PathVariable("id") @CarIdExists Long id
+    ) {
         return carService.findById(id);
     }
 
@@ -47,7 +50,7 @@ public class CarController {
 
     @PutMapping("/api/v1/cars/{id}")
     public CarDto update(
-            @PathVariable("id") Long id,
+            @PathVariable("id") @CarIdExists Long id,
             @RequestBody @Valid CarUpdateForm form
     ) {
         return carService.update(id, form);
@@ -55,7 +58,9 @@ public class CarController {
 
     @DeleteMapping("/api/v1/cars/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable("id") Long id) {
+    public void deleteById(
+            @PathVariable("id") @CarIdExists Long id
+    ) {
         carService.deleteById(id);
     }
 }
