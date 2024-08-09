@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -69,6 +71,7 @@ public class PostController {
         return postService.findByTitleContaining(search, pageable);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/v1/posts")
     public PostDto create(
             @RequestBody @Valid PostCreateForm form
@@ -92,6 +95,7 @@ public class PostController {
         postService.updateTitle(id, title);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/api/v1/posts/{id}")
     public void deleteById(
             @PathVariable("id") @PostIdExists Long id
@@ -99,6 +103,7 @@ public class PostController {
         postService.deleteById(id);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/api/v1/posts/delete", params = "title")
     public void deleteByTitle(
             @RequestParam("title") @PostTitleExists String title
